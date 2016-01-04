@@ -1,0 +1,9 @@
+-lib doom
+-lib codemirror
+-lib thx.core
+-lib dots
+-js _
+--no-output
+-cp src
+
+doom.cm.CodeMirror

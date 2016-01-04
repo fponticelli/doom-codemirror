@@ -1,0 +1,15 @@
+{
+  "name": "doom",
+  "url": "https://github.com/fponticelli/doom",
+  "license": "MIT",
+  "classPath": "src",
+  "tags": ["js", "doom", "editor", "ide", "doom"],
+  "description": "CodeMirror component for doom.",
+  "releasenote": "first release.",
+  "version": "0.1.0",
+  "contributors": ["fponticelli"],
+  "dependencies" : {
+    "doom" : "",
+    "codemirror" : ""
+  }
+}
