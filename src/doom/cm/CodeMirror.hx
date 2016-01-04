@@ -50,8 +50,11 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
     for(field in optionNames) {
       var current = editor.getOption(field),
           value = Reflect.field(state, field);
-      if(current != value)
+      if(null == value)
+        value = Reflect.field(codemirror.CodeMirror.defaults, field);
+      if(current != value) {
         editor.setOption(field, value);
+      }
     }
     if(editor.getValue() != state.value)
       editor.setValue(state.value);
