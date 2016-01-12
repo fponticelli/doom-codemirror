@@ -18,7 +18,7 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
   override function render()
     return div(["class" => "doom-codemirror"]);
 
-  override function mount() {
+  override function didMount() {
     options = state.clone();
 
     editor = new codemirror.CodeMirror(function(el : Element) {
@@ -45,7 +45,7 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
     }
   }
 
-  override function refresh() {
+  override function didRefresh() {
     detach();
     for(field in optionNames) {
       var current = editor.getOption(field),
@@ -64,9 +64,10 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
   function migrate(old : CodeMirror) {
     editor = old.editor;
     old.detach();
+    // TODO is attach needed here? it seems like didRefresh will invoke it just after
     attach();
   }
 
-  override function destroy()
+  override function didUnmount()
     detach();
 }
