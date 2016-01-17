@@ -23,11 +23,12 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
 
     editor = new codemirror.CodeMirror(function(el : Element) {
       element.appendChild(el);
+      thx.Timer.immediate(attach);
     }, state);
-    attach();
   }
 
   function attach() {
+    trace("ATTACH");
     events = new Map();
     // attach api events
     for(field in Reflect.fields(api)) {
@@ -38,6 +39,9 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
   }
 
   function detach() {
+    trace("DETACH");
+    if(null == events)
+      return;
     // remove api from events
     for(field in events.keys()) {
       var fn = events.get(field);
@@ -46,6 +50,7 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
   }
 
   override function didRefresh() {
+    if(null == editor) return;
     detach();
     for(field in optionNames) {
       var current = editor.getOption(field),
@@ -65,7 +70,7 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
     editor = old.editor;
     old.detach();
     // TODO is attach needed here? it seems like didRefresh will invoke it just after
-    attach();
+    // attach();
   }
 
   override function didUnmount()
