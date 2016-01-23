@@ -8,50 +8,42 @@ import haxe.Constraints.Function;
 using thx.Objects;
 
 class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
-  static var eventNames = ["change", "beforeChange", "cursorActivity", "beforeSelectionChange", "changes", "keyHandled", "inputRead", "electrictInput", "viewportChange", "swapDoc", "gutterClick", "gutterContextMenu", "focus", "blur", "scroll", "scrollCursorIntoView", "update", "renderLine", "mousedown", "dblclick", "contextmenu", "keydown", "keypress", "keyup", "cut", "copy", "paste", "dragstart", "dragenter", "dragover", "drop"];
   static var optionNames = ["mode", "lineSeparator", "theme", "indentUnit", "smartIndent", "tabSize", "indentWithTabs", "electricChars", "specialChars", "specialCharPlaceholder", "rtlMoveVisually", "keyMap", "extraKeys", "lineWrapping", "lineNumbers", "firstLineNumber", "lineNumberFormatter", "gutters", "fixedGutter", "scrollbarStyle", "coverGutterNextToScrollbar", "inputStyle", "readOnly", "showCursorWhenSelecting", "lineWiseCopyCut", "undoDepth", "historyEventDelay", "tabindex", "autofocus", "dragDrop", "allowDropFileTypes", "cursorBlinkRate", "cursorScrollMargin", "cursorHeight", "resetSelectionOnContextMenu", "workTime", "workDelay", "pollInterval", "flattenSpans", "addModeClass", "maxHighlightLength", "viewportMargin"];
+  static var eventNames = ["mount", "refresh", "changes", "keyHandled", "inputRead", "electricInput", "viewportChange", "swapDoc", "gutterClick", "gutterContextMenu", "focus", "blur", "scroll", "scrollCursorIntoView", "update", "renderLine", "mousedown", "dblclick", "contextmenu", "keydown", "keypress", "keyup", "cut", "copy", "paste", "dragstart", "dragenter", "dragover", "drop"];
 
   var editor : codemirror.CodeMirror;
-  var events : Map<String, Function>;
-  var options : CodeMirrorOptions;
+  var events : Map<String, haxe.Constraints.Function>;
 
   override function render()
     return div(["class" => "doom-codemirror"]);
 
   override function didMount() {
-    options = state.clone();
-
-    editor = new codemirror.CodeMirror(function(el : Element) {
-      element.appendChild(el);
-      thx.Timer.immediate(attach);
-    }, state);
+    editor = new codemirror.CodeMirror(element, state);
+    setupEvents();
+    if(null != api.mount)
+      api.mount(editor);
   }
 
-  function attach() {
-    trace("ATTACH");
+  function setupEvents() {
     events = new Map();
-    // attach api events
-    for(field in Reflect.fields(api)) {
-      var fn = Reflect.field(api, field);
-      editor.on(field, fn);
-      events.set(field, fn);
+    for(name in eventNames) {
+      var f = Reflect.field(api, name);
+      if(null == f) continue;
+      events.set(name, f);
+      editor.on(name, f);
     }
   }
 
-  function detach() {
-    trace("DETACH");
+  function clearEvents() {
     if(null == events)
       return;
-    // remove api from events
-    for(field in events.keys()) {
-      var fn = events.get(field);
-      editor.off(field, fn);
+    for(name in events.keys()) {
+      editor.off(name, events.get(name));
     }
   }
 
   override function didRefresh() {
     if(null == editor) return;
-    detach();
     for(field in optionNames) {
       var current = editor.getOption(field),
           value = Reflect.field(state, field);
@@ -61,18 +53,16 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
         editor.setOption(field, value);
       }
     }
-    if(editor.getValue() != state.value)
-      editor.setValue(state.value);
-    attach();
+    editor.setValue(state.value);
+    if(null != api.refresh)
+      api.refresh(editor);
   }
 
   function migrate(old : CodeMirror) {
+    if(null == old.editor) return;
+    old.clearEvents();
     editor = old.editor;
-    old.detach();
-    // TODO is attach needed here? it seems like didRefresh will invoke it just after
-    // attach();
+    editor.setValue(state.value);
+    setupEvents();
   }
-
-  override function didUnmount()
-    detach();
 }

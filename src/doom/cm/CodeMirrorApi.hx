@@ -9,14 +9,12 @@ import js.html.Element;
 import js.html.Event;
 
 typedef CodeMirrorApi = {
-  ?change : Doc -> ChangeObject -> Void,
-  ?beforeChange : Doc -> ChangeObject -> Void,
-  ?cursorActivity : Doc -> Void,
-  ?beforeSelectionChange : Doc -> SelectionChange -> Void,
-  ?changes : CM -> Array<ChangeObject>,
+  ?mount : CM -> Void,
+  ?refresh : CM -> Void,
+  ?changes : CM -> Array<ChangeObject> -> Void,
   ?keyHandled : CM -> String -> Event -> Void,
   ?inputRead : CM -> ChangeObject -> Void,
-  ?electrictInput : CM -> Int -> Void,
+  ?electricInput : CM -> Int -> Void,
   ?viewportChange : CM -> Float -> Float -> Void,
   ?swapDoc : CM -> Doc -> Void,
   ?gutterClick : CM -> Int -> String -> Event -> Void,

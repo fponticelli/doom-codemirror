@@ -2,8 +2,8 @@
 -lib codemirror
 -lib thx.core
 -lib dots
--js _
---no-output
+-js bin/index.js
 -cp src
-
+-cp demo
+-main Main
 doom.cm.CodeMirror
