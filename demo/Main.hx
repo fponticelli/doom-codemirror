@@ -2,10 +2,10 @@ import Helpers.*;
 
 class Main {
   static function main() {
-    // mountComponent();
-    // buildFromComponent();
-    // sequence();
-    // multiUpdate();
+    mountComponent();
+    buildFromComponent();
+    sequence();
+    multiUpdate();
     multiSequence();
   }
 

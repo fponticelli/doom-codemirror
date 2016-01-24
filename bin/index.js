@@ -706,6 +706,10 @@ Lambda.has = function(it,elt) {
 var Main = function() { };
 Main.__name__ = ["Main"];
 Main.main = function() {
+	Main.mountComponent();
+	Main.buildFromComponent();
+	Main.sequence();
+	Main.multiUpdate();
 	Main.multiSequence();
 };
 Main.mountComponent = function() {
