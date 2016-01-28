@@ -1337,7 +1337,7 @@ doom_HtmlNode.createElement = function(name,attributes,children,post) {
 		var _this = Doom.namespaces;
 		if(__map_reserved[prefix] != null) tmp = _this.getReserved(prefix); else tmp = _this.h[prefix];
 		var ns = tmp;
-		if(null == ns) throw new thx_Error("element prefix \"" + prefix + "\" is not associated to any namespace. Add the right namespace to Doom.namespaces.",null,{ fileName : "HtmlNode.hx", lineNumber : 36, className : "doom.HtmlNode", methodName : "createElement"});
+		if(null == ns) throw new thx_Error("element prefix \"" + prefix + "\" is not associated to any namespace. Add the right namespace to Doom.namespaces.",null,{ fileName : "HtmlNode.hx", lineNumber : 34, className : "doom.HtmlNode", methodName : "createElement"});
 		el = window.document.createElementNS(ns,name1);
 	} else el = window.document.createElement(name);
 	var tmp1 = attributes.keys();
@@ -1406,8 +1406,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			var newComp1 = patch[3];
 			var oldComp1 = patch[2];
 			oldComp1.didUnmount();
-			newComp1.element = oldComp1.element;
-			newComp1.didMount();
+			doom_HtmlNode.applyPatch(doom_Patch.MigrateElementToComponent(newComp1),node);
 		}
 		break;
 	case 6:
@@ -1422,7 +1421,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			node.appendChild(window.document.createTextNode(text));
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 1:
@@ -1432,7 +1431,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			node.appendChild(dots_Html.parse(text1));
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 2:
@@ -1452,7 +1451,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			}
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 3:
@@ -1470,7 +1469,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			}
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 7:
@@ -1483,7 +1482,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			node.removeAttribute(name1);
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 9:
@@ -1510,7 +1509,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			}
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 10:
@@ -1562,7 +1561,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			if(node.parentNode.nodeName == "TEXTAREA") node.parentNode.value = newcontent1; else node.nodeValue = newcontent1;
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	case 15:
@@ -1574,7 +1573,7 @@ doom_HtmlNode.applyPatch = function(patch,node) {
 			if(null != n) doom_HtmlNode.applyPatches(patches,n);
 			break;
 		default:
-			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 155, className : "doom.HtmlNode", methodName : "applyPatch"});
+			throw new thx_Error("cannot apply patch " + Std.string(p) + " on " + Std.string(node),null,{ fileName : "HtmlNode.hx", lineNumber : 154, className : "doom.HtmlNode", methodName : "applyPatch"});
 		}
 		break;
 	}
@@ -3708,6 +3707,11 @@ thx_Arrays.appendIf = function(array,cond,element) {
 	if(cond) array.push(element);
 	return array;
 };
+thx_Arrays.monoid = function() {
+	return { zero : [], append : function(a,b) {
+		return a.concat(b);
+	}};
+};
 thx_Arrays.after = function(array,element) {
 	return array.slice(thx__$ReadonlyArray_ReadonlyArray_$Impl_$.indexOf(array,element) + 1);
 };
@@ -3919,6 +3923,14 @@ thx_Arrays.find = function(array,predicate) {
 	}
 	return null;
 };
+thx_Arrays.findOption = function(array,predicate) {
+	var tmp = HxOverrides.iter(array);
+	while(tmp.hasNext()) {
+		var element = tmp.next();
+		if(predicate(element)) return haxe_ds_Option.Some(element);
+	}
+	return haxe_ds_Option.None;
+};
 thx_Arrays.findIndex = function(array,predicate) {
 	var _g1 = 0;
 	var _g = array.length;
@@ -3971,7 +3983,7 @@ thx_Arrays.spanByIndex = function(arr,spanKey) {
 	while(_g1 < _g) {
 		var i = _g1++;
 		var k = spanKey(i);
-		if(k == null) throw new thx_Error("spanKey function returned null for index " + i,null,{ fileName : "Arrays.hx", lineNumber : 465, className : "thx.Arrays", methodName : "spanByIndex"});
+		if(k == null) throw new thx_Error("spanKey function returned null for index " + i,null,{ fileName : "Arrays.hx", lineNumber : 486, className : "thx.Arrays", methodName : "spanByIndex"});
 		if(cur == k) acc[j].push(arr[i]); else {
 			cur = k;
 			++j;
@@ -6383,7 +6395,13 @@ thx_Options.flatMap = function(option,callback) {
 	}
 };
 thx_Options.join = function(option) {
-	return thx_Options.flatMap(option,thx_Functions.identity);
+	switch(option[1]) {
+	case 1:
+		return haxe_ds_Option.None;
+	case 0:
+		var v = option[2];
+		return v;
+	}
 };
 thx_Options.foldLeft = function(option,b,f) {
 	switch(option[1]) {
@@ -6456,6 +6474,19 @@ thx_Options.any = function(option,f) {
 	case 0:
 		var v = option[2];
 		return f(v);
+	}
+};
+thx_Options.traverseValidation = function(option,f) {
+	switch(option[1]) {
+	case 0:
+		var v = option[2];
+		return thx__$Validation_Validation_$Impl_$.ap(f(v),thx_Either.Right(function(v1) {
+			return haxe_ds_Option.Some(v1);
+		}),function(e1,e2) {
+			throw new js__$Boot_HaxeError("Unreachable");
+		});
+	case 1:
+		return thx_Either.Right(haxe_ds_Option.None);
 	}
 };
 thx_Options.toSuccess = function(option,error) {
@@ -8090,7 +8121,7 @@ Xml.DocType = 4;
 Xml.ProcessingInstruction = 5;
 Xml.Document = 6;
 doom_cm_CodeMirror.optionNames = ["mode","lineSeparator","theme","indentUnit","smartIndent","tabSize","indentWithTabs","electricChars","specialChars","specialCharPlaceholder","rtlMoveVisually","keyMap","extraKeys","lineWrapping","lineNumbers","firstLineNumber","lineNumberFormatter","gutters","fixedGutter","scrollbarStyle","coverGutterNextToScrollbar","inputStyle","readOnly","showCursorWhenSelecting","lineWiseCopyCut","undoDepth","historyEventDelay","tabindex","autofocus","dragDrop","allowDropFileTypes","cursorBlinkRate","cursorScrollMargin","cursorHeight","resetSelectionOnContextMenu","workTime","workDelay","pollInterval","flattenSpans","addModeClass","maxHighlightLength","viewportMargin"];
-doom_cm_CodeMirror.eventNames = ["mount","refresh","changes","keyHandled","inputRead","electricInput","viewportChange","swapDoc","gutterClick","gutterContextMenu","focus","blur","scroll","scrollCursorIntoView","update","renderLine","mousedown","dblclick","contextmenu","keydown","keypress","keyup","cut","copy","paste","dragstart","dragenter","dragover","drop"];
+doom_cm_CodeMirror.eventNames = ["changes","keyHandled","inputRead","electricInput","viewportChange","swapDoc","gutterClick","gutterContextMenu","focus","blur","scroll","scrollCursorIntoView","update","renderLine","mousedown","dblclick","contextmenu","keydown","keypress","keyup","cut","copy","paste","dragstart","dragenter","dragover","drop"];
 dots_Html.pattern = new EReg("[<]([^> ]+)","");
 haxe_crypto_Base64.CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 haxe_ds_ObjectMap.count = 0;
