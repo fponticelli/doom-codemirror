@@ -1,6 +1,6 @@
 {
-  "name": "doom",
-  "url": "https://github.com/fponticelli/doom",
+  "name": "doom-codemirror",
+  "url": "https://github.com/fponticelli/doom-codemirror",
   "license": "MIT",
   "classPath": "src",
   "tags": ["js", "doom", "editor", "ide", "doom"],
