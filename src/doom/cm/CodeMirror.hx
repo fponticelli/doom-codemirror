@@ -60,7 +60,8 @@ class CodeMirror extends doom.Component<CodeMirrorApi, CodeMirrorOptions> {
 
   override function didUnmount() {
     clearEvents();
-    element.innerHTML = "";
+    if(null != element)
+      element.innerHTML = "";
   }
 
   function migrate(old : CodeMirror) {
