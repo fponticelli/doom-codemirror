@@ -1,11 +1,8 @@
-import Doom.*;
+import doom.html.Html.*;
 import Helpers.*;
 using thx.Objects;
 
-class MultiSequence extends Doom {
-  @:state var a : String;
-  @:state var b : String;
-  @:state var c : String;
+class MultiSequence extends doom.html.Component<{ a : String, b : String, c : String }> {
   var counter = 0;
   override function render() {
     return switch (counter++) {
@@ -16,40 +13,43 @@ class MultiSequence extends Doom {
   }
 
   function render0() {
-    thx.Timer.delay(update.bind(state), 100);
+    thx.Timer.delay(update.bind(props), 100);
     return ul([
-      li(createEditor(c, "http", blurC))
+      li(createEditor(props.c, "http", blurC))
     ]);
   }
 
   function render1() {
-    thx.Timer.delay(update.bind(state), 100);
+    thx.Timer.delay(update.bind(props), 100);
     return ul([
-      li(createEditor(b, "javascript", blurB)),
-      li(createEditor(c, "http", blurC))
+      li(createEditor(props.b, "javascript", blurB)),
+      li(createEditor(props.c, "http", blurC))
     ]);
   }
 
   function render2() {
     return ul([
-      li(createEditor(a, "markdown", blurA)),
-      li(createEditor(b, "javascript", blurB)),
-      li(createEditor(c, "http", blurC))
+      li(createEditor(props.a, "markdown", blurA)),
+      li(createEditor(props.b, "javascript", blurB)),
+      li(createEditor(props.c, "http", blurC))
     ]);
   }
 
   function blurA(editor : codemirror.CodeMirror) {
     var value = editor.getValue();
-    update(state.merge({ a : value }));
+    update(props.merge({ a : value }));
   }
 
   function blurB(editor : codemirror.CodeMirror) {
     var value = editor.getValue();
-    update(state.merge({ b : value }));
+    update(props.merge({ b : value }));
   }
 
   function blurC(editor : codemirror.CodeMirror) {
     var value = editor.getValue();
-    update(state.merge({ c : value }));
+    update(props.merge({ c : value }));
   }
+
+  // override function migrationFields()
+  //   return super.migrationFields().concat(["counter"]);
 }

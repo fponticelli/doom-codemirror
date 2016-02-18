@@ -1,18 +1,18 @@
 import doom.cm.CodeMirror;
-import doom.cm.CodeMirrorApi;
-import Doom.*;
+import doom.html.Html.*;
 
 class Helpers {
   public static function createEditor(content : String, mode : String, ?blur : codemirror.CodeMirror -> Void) {
     return new CodeMirror({
-      blur : blur
-    }, {
-      value : content,
-      indentUnit : 2,
-      tabSize : 2,
-      indentWithTabs : false,
-      lineNumbers : true,
-      mode : mode
+      blur : blur,
+      options : {
+        value : content,
+        indentUnit : 2,
+        tabSize : 2,
+        indentWithTabs : false,
+        lineNumbers : true,
+        mode : mode
+      }
     });
   }
 
