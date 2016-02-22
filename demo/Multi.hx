@@ -1,24 +1,21 @@
-import Doom.*;
+import doom.html.Html.*;
 import Helpers.*;
 using thx.Objects;
 
-class Multi extends Doom {
-  @:state var a : String;
-  @:state var b : String;
-  @:state var c : String;
+class Multi extends doom.html.Component<{ a : String, b : String, c : String }> {
   override function render() {
     return ul([
-      li(createEditor(a, "markdown", function(editor) {
+      li(createEditor(props.a, "markdown", function(editor) {
         var value = editor.getValue();
-        update(state.merge({ a : value }));
+        update(props.merge({ a : value }));
       })),
-      li(createEditor(b, "javascript", function(editor) {
+      li(createEditor(props.b, "javascript", function(editor) {
         var value = editor.getValue();
-        update(state.merge({ b : value }));
+        update(props.merge({ b : value }));
       })),
-      li(createEditor(c, "http", function(editor) {
+      li(createEditor(props.c, "http", function(editor) {
         var value = editor.getValue();
-        update(state.merge({ c : value }));
+        update(props.merge({ c : value }));
       }))
     ]);
   }

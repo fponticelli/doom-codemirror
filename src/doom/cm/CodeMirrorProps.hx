@@ -8,7 +8,7 @@ import codemirror.SelectionChange;
 import js.html.Element;
 import js.html.Event;
 
-typedef CodeMirrorApi = {
+typedef CodeMirrorProps = {
   ?mount : CM -> Void,
   ?refresh : CM -> Void,
   ?changes : CM -> Array<ChangeObject> -> Void,
@@ -38,4 +38,5 @@ typedef CodeMirrorApi = {
   ?dragenter : CM -> Event -> Void,
   ?dragover : CM -> Event -> Void,
   ?drop : CM -> Event -> Void,
+  ?options : codemirror.Options
 }

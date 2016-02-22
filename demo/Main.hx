@@ -11,36 +11,36 @@ class Main {
 
   static function mountComponent() {
     var comp = createEditor("var a = 1;", "javascript");
-    Doom.mount(comp, getContainer("mount component"));
+    Doom.browser.mount(comp, getContainer("mount component"));
   }
 
   static function buildFromComponent() {
-    var comp = EditorContainer.with();
-    Doom.mount(comp, getContainer("build from component"));
+    var comp = new EditorContainer({});
+    Doom.browser.mount(comp, getContainer("build from component"));
   }
 
   static function sequence() {
-    var comp = new DivWithNode({}, { n : createEditor("var a = 1;", "javascript") });
-    Doom.mount(comp, getContainer("sequence"));
+    var comp = new Div({ n : createEditor("var a = 1;", "javascript").asNode() });
+    Doom.browser.mount(comp, getContainer("sequence"));
     comp.update({ n : createEditor("var a = 2;", "javascript") });
     comp.update({ n : createEditor("# title;", "markdown") });
   }
 
   static function multiUpdate() {
-    var comp = Multi.with(
-      "# title A",
-      "var v = 2;",
-      "GET /some HTTP/1.1\nHost: example.com"
-    );
-    Doom.mount(comp, getContainer("multi update"));
+    var comp = new Multi({
+      a : "# title A",
+      b : "var v = 2;",
+      c : "GET /some HTTP/1.1\nHost: example.com"
+    });
+    Doom.browser.mount(comp, getContainer("multi update"));
   }
 
   static function multiSequence() {
-    var comp = MultiSequence.with(
-      "# title A",
-      "var v = 2;",
-      "GET /some HTTP/1.1\nHost: example.com"
-    );
-    Doom.mount(comp, getContainer("multi sequence"));
+    var comp = new MultiSequence({
+      a : "# title A",
+      b : "var v = 2;",
+      c : "GET /some HTTP/1.1\nHost: example.com"
+    });
+    Doom.browser.mount(comp, getContainer("multi sequence"));
   }
 }
