@@ -1,7 +1,6 @@
 package doom.cm;
 
 import doom.html.Html.*;
-import haxe.Constraints.Function;
 
 class CodeMirror extends doom.html.Component<CodeMirrorProps> {
   static var optionNames = ["mode", "lineSeparator", "theme", "indentUnit", "smartIndent", "tabSize", "indentWithTabs", "electricChars", "specialChars", "specialCharPlaceholder", "rtlMoveVisually", "keyMap", "extraKeys", "lineWrapping", "lineNumbers", "firstLineNumber", "lineNumberFormatter", "gutters", "fixedGutter", "scrollbarStyle", "coverGutterNextToScrollbar", "inputStyle", "readOnly", "showCursorWhenSelecting", "lineWiseCopyCut", "undoDepth", "historyEventDelay", "tabindex", "autofocus", "dragDrop", "allowDropFileTypes", "cursorBlinkRate", "cursorScrollMargin", "cursorHeight", "resetSelectionOnContextMenu", "workTime", "workDelay", "pollInterval", "flattenSpans", "addModeClass", "maxHighlightLength", "viewportMargin"];
@@ -52,7 +51,8 @@ class CodeMirror extends doom.html.Component<CodeMirrorProps> {
         editor.setOption(field, value);
       }
     }
-    editor.setValue(props.options.value);
+    if(props.options.value != editor.getValue())
+      editor.setValue(props.options.value);
     if(null != props.refresh)
       props.refresh(editor);
     setupEvents();
