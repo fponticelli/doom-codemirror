@@ -1,0 +1,30 @@
+{
+  "dependencies": [
+    {
+      "name": "codemirror",
+      "type": "git",
+      "ref": "c6d05b8",
+      "url": "git@github.com:fponticelli/hxcodemirror"
+    },
+    {
+      "name": "doom",
+      "type": "git",
+      "ref": "59773c9",
+      "url": "git@github.com:fponticelli/doom"
+    },
+    {
+      "name": "dots",
+      "type": "git",
+      "dir": "src",
+      "ref": "9b7c752",
+      "url": "git@github.com:fponticelli/dots"
+    },
+    {
+      "name": "thx.core",
+      "type": "git",
+      "dir": "src",
+      "ref": "5c7cb38",
+      "url": "git@github.com:fponticelli/thx.core"
+    }
+  ]
+}

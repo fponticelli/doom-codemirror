@@ -7,15 +7,15 @@ class Multi extends doom.html.Component<{ a : String, b : String, c : String }> 
     return ul([
       li(createEditor(props.a, "markdown", function(editor) {
         var value = editor.getValue();
-        update(props.merge({ a : value }));
+        update(props.shallowMerge({ a : value }));
       })),
       li(createEditor(props.b, "javascript", function(editor) {
         var value = editor.getValue();
-        update(props.merge({ b : value }));
+        update(props.shallowMerge({ b : value }));
       })),
       li(createEditor(props.c, "http", function(editor) {
         var value = editor.getValue();
-        update(props.merge({ c : value }));
+        update(props.shallowMerge({ c : value }));
       }))
     ]);
   }

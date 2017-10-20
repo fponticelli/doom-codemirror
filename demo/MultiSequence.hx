@@ -37,17 +37,17 @@ class MultiSequence extends doom.html.Component<{ a : String, b : String, c : St
 
   function blurA(editor : codemirror.CodeMirror) {
     var value = editor.getValue();
-    update(props.merge({ a : value }));
+    update(props.shallowMerge({ a : value }));
   }
 
   function blurB(editor : codemirror.CodeMirror) {
     var value = editor.getValue();
-    update(props.merge({ b : value }));
+    update(props.shallowMerge({ b : value }));
   }
 
   function blurC(editor : codemirror.CodeMirror) {
     var value = editor.getValue();
-    update(props.merge({ c : value }));
+    update(props.shallowMerge({ c : value }));
   }
 
   // override function migrationFields()
